@@ -18,4 +18,4 @@ jobs:
       - name: Run Golint
         uses: norwd/golintr@v2
         with:
-          path: /testgithubact
+          path: /
