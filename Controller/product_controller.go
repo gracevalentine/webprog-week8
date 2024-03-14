@@ -109,7 +109,7 @@ func InsertNewProductsandTrans(w http.ResponseWriter, r *http.Request) {
 	// Insert transaksi baru
 	_, err = tx.Exec("INSERT INTO transactions (id, userID, productID, quantity) VALUES (?, ?, ?, ?)", id, userid, productId, quantity)
 	if err != nil {
-		SendErrorResponse(505, "Failed to insert data.")
+		SendErrorResponse(w, 505, "Failed to insert data.")
 		return
 	}
 
@@ -200,7 +200,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 	_, err = stmt.Exec(id, name, price)
 	if err != nil {
-		SendErrorResponse(500, "Internal server error")
+		SendErrorResponse(w, 500, "Internal server error")
 		return
 	}
 
