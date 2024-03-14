@@ -28,12 +28,12 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 
 	if name != nil {
 		fmt.Println(name[0])
-		query += " WHERE name= '" + name[0] + "'"
+		query = query + " WHERE name= '" + name[0] + "'"
 	}
 
 	if price != nil {
 		if name[0] != "" {
-			query += " AND"
+			query = query + " AND"
 		} else {
 			query += " WHERE"
 		}
@@ -109,7 +109,7 @@ func InsertNewProductsandTrans(w http.ResponseWriter, r *http.Request) {
 	// Insert transaksi baru
 	_, err = tx.Exec("INSERT INTO transactions (id, userID, productID, quantity) VALUES (?, ?, ?, ?)", id, userid, productId, quantity)
 	if err != nil {
-		SendErrorResponse(w, 505, "Failed to insert data.")
+		SendErrorResponse(505, "Failed to insert data.")
 		return
 	}
 
@@ -200,7 +200,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 	_, err = stmt.Exec(id, name, price)
 	if err != nil {
-		SendErrorResponse(w, 500, "Internal server error")
+		SendErrorResponse(500, "Internal server error")
 		return
 	}
 
