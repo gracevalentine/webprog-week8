@@ -1,0 +1,7 @@
+200 (... successfully)
+505 (Failed to del/up/ins data)
+500 (Error connecting to database)
+404 (Data not found)
+505 (Failed to convert)
+400 (Bad request)
+log.Println("Error scanning user data:", err)
