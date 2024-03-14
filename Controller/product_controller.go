@@ -35,7 +35,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 		if name[0] != "" {
 			query = query + " AND"
 		} else {
-			query += " WHERE"
+			query = query + " WHERE"
 		}
 		query += " price='" + price[0] + "'"
 	}
