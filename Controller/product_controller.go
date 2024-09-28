@@ -179,10 +179,6 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	db := connect()
 	defer db.Close()
 
-	name := r.Form.Get("name")
-	price := r.Form.Get("price")
-	id := mux.Vars(r)["id"] // Mengambil nilai ID dari URL
-
 	// Parsing data formulir
 	err := r.ParseForm()
 	if err != nil {
@@ -190,15 +186,12 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Memperbarui data di database
-	stmt, err := db.Prepare("UPDATE products SET name=?, price=? WHERE id=?")
-	if err != nil {
-		SendErrorResponse(w, 505, "Failed to update data.")
-		return
-	}
-	defer stmt.Close()
+	name := r.Form.Get("name")
+	price := r.Form.Get("price")
+	id := mux.Vars(r)["id"]
 
-	_, err = stmt.Exec(id, name, price)
+	// Memperbarui data di database
+	_, err = db.Exec("UPDATE products SET name=?, price=? WHERE id=?", name, price, id)
 	if err != nil {
 		SendErrorResponse(w, 500, "Internal server error")
 		return
